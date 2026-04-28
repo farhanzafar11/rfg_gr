@@ -1,15 +1,19 @@
-import { auth } from "@/lib/auth"
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export default auth((req) => {
-  const isLoggedIn = !!req.auth
-  const isDashboard = req.nextUrl.pathname.startsWith("/dashboard")
-  
-  if (isDashboard && !isLoggedIn) {
-    return NextResponse.redirect(new URL("/login", req.url))
-  }
-})
+export function proxy(request: NextRequest) {
+    const token = request.cookies.get("next-auth.session-token")?.value;
+    const pathname = request.nextUrl.pathname;
+
+    // Protect dashboard and any sub-routes
+    if (pathname.startsWith("/dashboard") && !token) {
+        const loginUrl = new URL("/login", request.url);
+        return NextResponse.redirect(loginUrl);
+    }
+
+    return NextResponse.next();
+}
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
-}
+    matcher: ["/dashboard/:path*"],
+};

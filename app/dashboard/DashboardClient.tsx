@@ -24,14 +24,14 @@ export function DashboardClient() {
         <p className="text-gc-text-secondary text-sm">Upload a vendor quotation PDF (Huawei · Fortinet · Cisco)</p>
       </div>
 
-      <UploadCard 
-        onStatusChange={handleStatusChange} 
-        isUploading={status === "uploading"} 
+      <UploadCard
+        onStatusChange={handleStatusChange}
+        isUploading={status === "uploading"}
       />
 
-      <StatusBanner 
-        status={status} 
-        message={statusMessage} 
+      <StatusBanner
+        status={status}
+        message={statusMessage}
         onRetry={() => handleStatusChange("idle")}
       />
 

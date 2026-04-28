@@ -1,20 +1,16 @@
 "use client";
-
 import { signIn } from "next-auth/react";
-import Image from "next/image";
 
 export function SignInButton() {
+  const handleGoogleSignIn = async () => {
+    await signIn("google", { callbackUrl: "/dashboard" });
+  };
+
   return (
     <button
-      onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-      className="flex items-center justify-center gap-3 w-full bg-white text-gray-900 rounded-full py-3 px-6 text-sm font-medium hover:bg-gray-100 transition-colors shadow-sm"
+      onClick={handleGoogleSignIn}
+      className="w-full bg-gc-primary text-white py-2 rounded hover:bg-gc-primary-dark transition-colors"
     >
-      <Image 
-        src="https://www.svgrepo.com/show/475656/google-color.svg" 
-        alt="Google" 
-        width={20} 
-        height={20} 
-      />
       Sign in with Google
     </button>
   );

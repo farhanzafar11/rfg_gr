@@ -1,7 +1,8 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Image from "next/image";
-import { SignInButton } from "./SignInButton";
+
+import { CredentialsForm } from "./CredentialsForm";
 
 export default async function LoginPage() {
   const session = await auth();
@@ -24,9 +25,11 @@ export default async function LoginPage() {
           Automated Proposal Portal
         </h1>
         
-        <div className="w-full mb-8 flex justify-center">
-          <SignInButton />
-        </div>
+        <CredentialsForm />
+        
+
+
+
 
         <p className="text-xs text-gc-text-secondary mt-4 border-t border-gc-border pt-6 w-full">
           Access restricted to authorized accounts
